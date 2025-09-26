@@ -1,1 +1,71 @@
+# Dependencies
 node_modules
+**/node_modules/
+.pnp
+.pnp.js
+.yarn/install-state.gz
+
+# Testing
+coverage
+coverage.json
+typechain
+typechain-types
+
+# Production
+build
+dist
+out
+
+# Hardhat
+cache
+artifacts
+**/cache/
+**/artifacts/
+**/typechain/
+**/typechain-types/
+**/.openzeppelin/
+
+# Foundry
+cache/
+out/
+broadcast/
+**/.coverage_artifacts
+**/.coverage_cache
+**/.coverage_contracts
+
+# Next.js
+.next/
+out/
+build
+.vercel
+
+# Environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+**/.env
+**/.env.local
+
+# Debug logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# IDE
+.idea
+.vscode
+*.swp
+*.swo
+
+# OS
+.DS_Store
+*.pem
+
+# Misc
+*.log
+
+# Blockchain specific
+**/deployments/localhost
+**/.chainid
