@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "@react-native-async-storage/async-storage": "^2.2.0"
+    "@react-native-async-storage/async-storage": "^2.2.0",
+    "ethers": "^6.15.0"
   }
 }
