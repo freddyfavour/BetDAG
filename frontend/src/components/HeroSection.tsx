@@ -1,9 +1,20 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import ConnectButton from "./ConnectButton";
 import { Brain, Chart, Blockchain } from "./Icons";
+import { useAccount } from "wagmi";
+import Link from "next/link";
 
 export default function HeroSection() {
+  const { isConnected } = useAccount();
+  const [mounted, setMounted] = useState(false);
+  
+  // Set mounted state to true after the component mounts
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+  
   return (
     <section className="relative min-h-[90vh] flex items-center overflow-hidden">
       {/* Background gradient */}
@@ -39,11 +50,24 @@ export default function HeroSection() {
             </p>
             
             <div className="pt-4">
-              <ConnectButton 
-                variant="primary"
-                size="lg"
-                className="rounded-lg shadow-lg shadow-blue-500/20"
-              />
+              {mounted ? (
+                isConnected ? (
+                  <Link href="/predictions" 
+                    className="inline-block bg-gradient-to-r from-blue-600 to-teal-400 hover:opacity-90 text-white font-medium py-3 px-6 text-lg rounded-lg shadow-lg shadow-blue-500/20 transition-colors duration-200">
+                    Go to Dashboard
+                  </Link>
+                ) : (
+                  <ConnectButton 
+                    variant="primary"
+                    size="lg"
+                    className="rounded-lg shadow-lg shadow-blue-500/20"
+                  />
+                )
+              ) : (
+                <div className="inline-block bg-gray-700 text-transparent py-3 px-6 text-lg rounded-lg shadow-lg">
+                  Loading...
+                </div>
+              )}
             </div>
           </div>
           

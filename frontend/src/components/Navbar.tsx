@@ -1,13 +1,21 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Logo from "@/components/Logo";
 import ConnectButton from "@/components/ConnectButton";
 import { useAccount } from "wagmi";
 import { usePathname } from "next/navigation";
+import Link from "next/link";
 
 export default function Navbar() {
   const { isConnected } = useAccount();
   const pathname = usePathname();
+  const [mounted, setMounted] = useState(false);
+  
+  // Set mounted state to true after the component mounts
+  useEffect(() => {
+    setMounted(true);
+  }, []);
   
   // Only show nav tabs on dashboard routes
   const isDashboard = ["/predictions", "/stats", "/leaderboard", "/profile"].some((route) => pathname.startsWith(route));
@@ -26,15 +34,21 @@ export default function Navbar() {
             </nav>
           )}
           <div>
-            {isConnected ? (
-              <a href="/profile" className="text-gray-300 hover:text-white px-4 py-2 rounded-lg transition-colors">
-                Go to Dashboard
-              </a>
+            {mounted ? (
+              isConnected ? (
+                <Link href="/predictions" className="text-gray-300 hover:text-white px-4 py-2 rounded-lg transition-colors">
+                  Go to Dashboard
+                </Link>
+              ) : (
+                <ConnectButton 
+                  variant="default" 
+                  className="bg-transparent hover:bg-gray-800 text-white px-4 py-2 rounded-lg" 
+                />
+              )
             ) : (
-              <ConnectButton 
-                variant="default" 
-                className="bg-transparent hover:bg-gray-800 text-white px-4 py-2 rounded-lg" 
-              />
+              <div className="text-gray-700 px-4 py-2 rounded-lg">
+                Loading...
+              </div>
             )}
           </div>
         </div>
@@ -45,11 +59,11 @@ export default function Navbar() {
 
 function NavItem({ href, children }: { href: string, children: React.ReactNode }) {
   return (
-    <a 
+    <Link 
       href={href} 
       className="text-gray-300 hover:text-white transition-colors duration-200"
     >
       {children}
-    </a>
+    </Link>
   );
 }
