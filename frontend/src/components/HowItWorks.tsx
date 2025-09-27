@@ -1,6 +1,14 @@
 "use client";
 
+import { useEffect, useRef } from 'react';
 import Image from 'next/image';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
+
+// Register ScrollTrigger plugin
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 interface StepProps {
   number: number;
@@ -33,51 +41,101 @@ function Step({ number, title, description, iconSrc }: StepProps) {
 }
 
 export default function HowItWorks() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
+
+  useEffect(() => {
+    // Animation for the How It Works section
+    const section = sectionRef.current;
+    const title = titleRef.current;
+    const cards = cardsRef.current;
+
+    if (section && title && cards.length > 0) {
+      // Animate the title
+      gsap.fromTo(
+        title,
+        { y: 50, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          scrollTrigger: {
+            trigger: section,
+            start: "top 80%",
+          }
+        }
+      );
+
+      // Animate each card with stagger
+      gsap.fromTo(
+        cards,
+        { y: 100, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          stagger: 0.2,
+          scrollTrigger: {
+            trigger: section,
+            start: "top 60%",
+          }
+        }
+      );
+    }
+  }, []);
+
   const steps = [
     {
       number: 1,
       title: "Connect your wallet",
-      description: "Link your crypto wallet to get started with our secure prediction platform. We support multiple blockchain networks including BlockDAG.",
+      description: "Link your crypto wallet securely to access our prediction platform. We support multiple blockchain networks with BlockDAG technology for maximum security.",
       iconSrc: "/window.svg"
     },
     {
       number: 2,
-      title: "Check AI crypto predictions",
-      description: "Access advanced AI-powered analytics for cryptocurrency market trends. Our machine learning models analyze vast amounts of market data.",
+      title: "Explore AI predictions",
+      description: "Access sophisticated AI-powered analytics that forecast cryptocurrency market movements with remarkable accuracy based on comprehensive data analysis.",
       iconSrc: "/globe.svg"
     },
     {
       number: 3,
-      title: "Place a bet & earn rewards",
-      description: "Stake on predictions and earn rewards when your forecasts come true. Participate in prediction pools with other users.",
+      title: "Place bets & earn rewards",
+      description: "Make your predictions, stake your position, and earn substantial rewards when your market insights prove correct. Compete with others on our leaderboard.",
       iconSrc: "/file.svg"
     }
   ];
 
   return (
-    <section className="py-16 bg-[#070E1B]" id="how-it-works">
+    <section className="py-20 bg-black" id="how-it-works" ref={sectionRef}>
       <div className="container mx-auto px-4">
-        <div className="flex flex-col md:flex-row items-start justify-between gap-12">
-          <div className="w-full md:w-1/3">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              How <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-teal-400">It Works</span>
-            </h2>
-            <p className="text-gray-300 mb-6">
-              Our platform makes it easy to participate in AI-powered crypto predictions. Follow these simple steps to get started and begin earning rewards.
-            </p>
-          </div>
-          
-          <div className="w-full md:w-2/3 grid grid-cols-1 md:grid-cols-3 gap-6">
-            {steps.map((step) => (
+        <div className="text-center mb-16">
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6" ref={titleRef}>
+            How <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-500">It Works</span>
+          </h2>
+          <p className="text-gray-300 text-xl md:text-2xl max-w-3xl mx-auto">
+            Our platform makes it easy to participate in AI-powered crypto predictions. Follow these simple steps to get started and begin earning rewards.
+          </p>
+        </div>
+        
+        {/* Glowing orb background effect */}
+        <div className="absolute left-1/4 top-1/4 w-64 h-64 bg-blue-600/10 rounded-full blur-3xl"></div>
+        <div className="absolute right-1/4 bottom-1/4 w-80 h-80 bg-purple-600/10 rounded-full blur-3xl"></div>
+        
+        <div className="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          {steps.map((step, index) => (
+            <div 
+              key={step.number} 
+              ref={el => { cardsRef.current[index] = el; }}
+            >
               <Step 
-                key={step.number} 
                 number={step.number} 
                 title={step.title} 
                 description={step.description} 
                 iconSrc={step.iconSrc}
               />
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
       </div>
     </section>

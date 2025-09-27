@@ -6,6 +6,9 @@
 
 BetDAG is an innovative AI-powered prediction market platform built on BlockDAG technology that allows users to make and bet on cryptocurrency price predictions. This project was created for the BlockDAG Hackathon with the theme "Prediction Markets".
 
+## Live demo
+https://betdag.vercel.app/
+
 ## 🌟 Overview
 
 BetDAG leverages the power of blockchain technology and artificial intelligence to create a transparent, secure, and engaging platform where users can:
