@@ -73,51 +73,109 @@ export default function PredictionsPage() {
       const predictions: AIPrediction[] = await response.json();
       
       // Map AI predictions to market format
-      const mappedMarkets: Market[] = predictions.map((prediction, index) => ({
-        id: index + 1,
-        question: prediction.symbol && symbolToTitle[prediction.symbol] ? 
-                  symbolToTitle[prediction.symbol] : 
-                  `${prediction.symbol ? prediction.symbol.toUpperCase() : 'Crypto'} prediction`,
-        yesPercent: prediction.probability_up,
-        noPercent: prediction.probability_down,
-        aiCommentary: prediction.commentary,
-        symbol: prediction.symbol,
-        // These would come from the smart contract in production
-        expiry: Math.floor(Date.now() / 1000) + 86400, // 24 hours from now
-        resolved: false,
-        outcome: null,
-        totalYes: prediction.probability_up * 10**17, // Mock values
-        totalNo: prediction.probability_down * 10**17
-      }));
+      const mappedMarkets: Market[] = predictions.map((prediction, index) => {
+        // Get the market ID (1-based since array is 0-based)
+        const id = index + 1;
+        
+        // Use the EXACT same mock values as in the detail page for matching IDs
+        let totalYes, totalNo;
+        
+        if (id === 1) { // Bitcoin
+          totalYes = 3.5 * 10**18;
+          totalNo = 1.8 * 10**18;
+        } else if (id === 2) { // Ethereum
+          totalYes = 2.2 * 10**18;
+          totalNo = 1.8 * 10**18;
+        } else if (id === 3) { // Solana
+          totalYes = 5.5 * 10**18;
+          totalNo = 1.8 * 10**18;
+        } else if (id === 4) { // XRP/Ripple
+          totalYes = 1.5 * 10**18;
+          totalNo = 3.8 * 10**18;
+        } else {
+          // Fallback using the prediction probabilities
+          totalYes = prediction.probability_up * 10**18;
+          totalNo = prediction.probability_down * 10**18;
+        }
+        
+        // Calculate percentages EXACTLY as in the detail page
+        const totalPool = totalYes + totalNo;
+        const yesPercent = totalPool > 0 ? Math.round((totalYes / totalPool) * 100) : 50;
+        const noPercent = totalPool > 0 ? Math.round((totalNo / totalPool) * 100) : 50;
+        
+        return {
+          id: index + 1,
+          question: prediction.symbol && symbolToTitle[prediction.symbol] ? 
+                    symbolToTitle[prediction.symbol] : 
+                    `${prediction.symbol ? prediction.symbol.toUpperCase() : 'Crypto'} prediction`,
+          yesPercent: yesPercent, // Using the calculated percentages
+          noPercent: noPercent,
+          aiCommentary: prediction.commentary,
+          symbol: prediction.symbol,
+          // These would come from the smart contract in production
+          expiry: Math.floor(Date.now() / 1000) + 86400, // 24 hours from now
+          resolved: false,
+          outcome: null,
+          totalYes: totalYes,
+          totalNo: totalNo
+        };
+      });
       
       setMarkets(mappedMarkets);
     } catch (error) {
       console.error("Error fetching AI predictions:", error);
-      // Fallback to default predictions
+            // Fallback to default predictions
+      // Define mock data exactly as in the detail page
+      const btcYes = 3.5 * 10**18; // Use exact same values as in detail page (mockMarkets)
+      const btcNo = 1.8 * 10**18;
+      const ethYes = 2.2 * 10**18;
+      const ethNo = 1.8 * 10**18;
+      const solYes = 5.5 * 10**18;
+      const solNo = 1.8 * 10**18;
+      
+      // Calculate percentages exactly as in detail page
+      const btcTotal = btcYes + btcNo;
+      const btcYesPercent = btcTotal > 0 ? Math.round((btcYes / btcTotal) * 100) : 50;
+      const btcNoPercent = btcTotal > 0 ? Math.round((btcNo / btcTotal) * 100) : 50;
+      
+      const ethTotal = ethYes + ethNo;
+      const ethYesPercent = ethTotal > 0 ? Math.round((ethYes / ethTotal) * 100) : 50;
+      const ethNoPercent = ethTotal > 0 ? Math.round((ethNo / ethTotal) * 100) : 50;
+      
+      const solTotal = solYes + solNo;
+      const solYesPercent = solTotal > 0 ? Math.round((solYes / solTotal) * 100) : 50;
+      const solNoPercent = solTotal > 0 ? Math.round((solNo / solTotal) * 100) : 50;
+      
       setMarkets([
         {
           id: 1,
           question: "BTC in next 24h",
-          yesPercent: 65,
-          noPercent: 35,
+          yesPercent: btcYesPercent,
+          noPercent: btcNoPercent,
           aiCommentary: "ETF rumors spark optimism in BTC.",
-          symbol: "bitcoin"
+          symbol: "bitcoin",
+          totalYes: btcYes,
+          totalNo: btcNo
         },
         {
           id: 2,
           question: "ETH in next 24h",
-          yesPercent: 55,
-          noPercent: 45,
+          yesPercent: ethYesPercent,
+          noPercent: ethNoPercent,
           aiCommentary: "Ethereum upgrades gaining momentum but facing resistance.",
-          symbol: "ethereum"
+          symbol: "ethereum",
+          totalYes: ethYes,
+          totalNo: ethNo
         },
         {
           id: 3,
           question: "SOL in next 24h",
-          yesPercent: 75,
-          noPercent: 25,
+          yesPercent: solYesPercent,
+          noPercent: solNoPercent,
           aiCommentary: "Strong ecosystem growth driving Solana price expectations.",
-          symbol: "solana"
+          symbol: "solana",
+          totalYes: solYes,
+          totalNo: solNo
         }
       ]);
     } finally {
@@ -184,6 +242,8 @@ export default function PredictionsPage() {
                     noPercent={market.noPercent}
                     aiCommentary={market.aiCommentary}
                     symbol={market.symbol}
+                    totalYes={market.totalYes}
+                    totalNo={market.totalNo}
                   />
                 ))
               )}

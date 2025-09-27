@@ -1,0 +1,18 @@
+# Production build files
+.next/
+out/
+build/
+dist/
+
+# Node modules
+node_modules/
+
+# Public files
+public/
+
+# Next.js specific
+next.config.*
+next-env.d.ts
+
+# Cache files
+.cache/

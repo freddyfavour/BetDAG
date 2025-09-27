@@ -1,0 +1,34 @@
+{
+  "predictions": [
+    {
+      "symbol": "bitcoin",
+      "name": "Bitcoin",
+      "currentPrice": 64800,
+      "prediction": "Bitcoin is showing strong bullish momentum with increased institutional adoption. Technical indicators suggest a potential rally toward the $70,000 level in the next 30 days. Watch for support levels at $60,000.",
+      "sentiment": "bullish",
+      "probabilityUp": 0.72,
+      "shortTermTarget": 69500,
+      "longTermTarget": 78000
+    },
+    {
+      "symbol": "ethereum",
+      "name": "Ethereum",
+      "currentPrice": 3450,
+      "prediction": "Ethereum continues to show strength with the successful implementation of EIP-4844. The upcoming changes are likely to drive increased demand. Technical analysis indicates a potential move toward $3,800 in the coming weeks.",
+      "sentiment": "bullish",
+      "probabilityUp": 0.68,
+      "shortTermTarget": 3800,
+      "longTermTarget": 4200
+    },
+    {
+      "symbol": "solana",
+      "name": "Solana",
+      "currentPrice": 175,
+      "prediction": "Solana's ecosystem growth and technical improvements have positioned it for potential gains. Current trading patterns suggest a possible test of $200 resistance with strong support at $160.",
+      "sentiment": "neutral",
+      "probabilityUp": 0.55,
+      "shortTermTarget": 195,
+      "longTermTarget": 220
+    }
+  ]
+}
