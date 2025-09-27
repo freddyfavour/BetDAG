@@ -27,7 +27,7 @@ export default function Home() {
         <HowItWorks />
         
         {/* AI Prediction Preview Card */}
-        <PreviewCard />
+        {/* <PreviewCard /> */}
         
         {/* Real Problem, Real Impact section */}
         <ProblemImpactSection />
