@@ -14,8 +14,8 @@ export default function Logo({ className = "" }: LogoProps) {
         <Image
           src="/BetDAG logo.png"
           alt="BetDAG Logo"
-          width={150}
-          height={40}
+          width={120}
+          height={30}
           className="h-auto"
           priority
         />

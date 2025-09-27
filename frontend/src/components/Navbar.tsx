@@ -36,7 +36,7 @@ export default function Navbar() {
           <div>
             {mounted ? (
               isConnected ? (
-                <Link href="/predictions" className="text-gray-300 hover:text-white px-4 py-2 rounded-lg transition-colors">
+                <Link href="/dashboard" className="text-gray-300 hover:text-white px-4 py-2 rounded-lg transition-colors">
                   Go to Dashboard
                 </Link>
               ) : (

@@ -52,7 +52,7 @@ export default function HeroSection() {
             <div className="pt-4">
               {mounted ? (
                 isConnected ? (
-                  <Link href="/predictions" 
+                  <Link href="/dashboard" 
                     className="inline-block bg-gradient-to-r from-blue-600 to-teal-400 hover:opacity-90 text-white font-medium py-3 px-6 text-lg rounded-lg shadow-lg shadow-blue-500/20 transition-colors duration-200">
                     Go to Dashboard
                   </Link>

@@ -6,8 +6,8 @@ import { Providers } from "./providers";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "BlockDAG Starter Kit",
-  description: "A starter kit for building on BlockDAG",
+  title: "BlockDAG - Your Gateway into Blockchain",
+  description: "BlockDAG is a blockchain platform making blockchain accessible with advanced AI-powered market predictions.",
 };
 
 export default function RootLayout({
