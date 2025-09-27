@@ -11,21 +11,23 @@ interface StepProps {
 
 function Step({ number, title, description, iconSrc }: StepProps) {
   return (
-    <div className="bg-gray-800/40 rounded-xl border border-gray-700/50 p-6 backdrop-blur-sm hover:bg-gray-800/60 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/10">
-      <div className="flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-r from-blue-600 to-teal-400 mb-4">
+    <div className="bg-gray-900/50 rounded-xl border border-gray-800/40 p-8 backdrop-blur-sm hover:bg-gray-800/60 transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/20 relative overflow-hidden group">
+      <div className="absolute -right-10 -top-10 w-40 h-40 bg-gradient-to-br from-blue-600/10 to-purple-500/10 rounded-full blur-3xl group-hover:from-blue-600/20 group-hover:to-purple-500/20 transition-all duration-500"></div>
+      <div className="flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-r from-blue-600 to-purple-500 mb-6 relative z-10 shadow-lg shadow-blue-500/20 group-hover:shadow-blue-500/30 transition-all duration-300">
         {iconSrc ? (
           <Image 
             src={iconSrc} 
             alt={title} 
-            width={32} 
-            height={32} 
+            width={36} 
+            height={36} 
+            className="group-hover:scale-110 transition-transform duration-300"
           />
         ) : (
-          <span className="text-xl font-bold text-white">{number}</span>
+          <span className="text-2xl font-bold text-white">{number}</span>
         )}
       </div>
-      <h3 className="text-xl font-bold mb-2 text-white">{title}</h3>
-      <p className="text-gray-300">{description}</p>
+      <h3 className="text-2xl font-bold mb-3 text-white relative z-10">{title}</h3>
+      <p className="text-gray-300 relative z-10 text-lg">{description}</p>
     </div>
   );
 }
