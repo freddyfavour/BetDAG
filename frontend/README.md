@@ -1,36 +1,144 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# BetDAG 🎯
 
-## Getting Started
+![BetDAG Logo](/frontend/public/BetDAG%20logo.png)
 
-First, run the development server:
+## Cryptocurrency Prediction Market Platform
 
+BetDAG is an innovative AI-powered prediction market platform built on BlockDAG technology that allows users to make and bet on cryptocurrency price predictions. This project was created for the BlockDAG Hackathon with the theme "Prediction Markets".
+
+## Live demo
+https://betdag.vercel.app/
+
+## 🌟 Overview
+
+BetDAG leverages the power of blockchain technology and artificial intelligence to create a transparent, secure, and engaging platform where users can:
+
+- Make predictions about cryptocurrency price movements
+- Bet on market outcomes using BlockDAG technology
+- Compete on leaderboards to showcase prediction accuracy
+- Access AI-powered insights to inform betting decisions
+- Connect their wallets for seamless transactions
+
+## 🔧 Technology Stack
+
+The project is built using a comprehensive tech stack:
+
+### Frontend
+- **Next.js** - React framework for building the user interface
+- **Tailwind CSS** - For responsive, modern styling
+- **Web3 Integration** - For wallet connectivity and blockchain interactions
+
+### Smart Contracts
+- **Foundry** - For smart contract development and testing
+- **Hardhat** - For deployment and additional testing
+- **Solidity** - Smart contract language
+
+### Backend Services
+- **AI Integration** - Machine learning models for market predictions
+- **BlockDAG Technology** - For secure, scalable blockchain operations
+
+## 📊 Core Features
+
+1. **AI-Powered Predictions**
+   - Leverage machine learning to provide market insights
+   - Access historical data analysis
+
+2. **Secure Betting Platform**
+   - BlockDAG technology ensures transparent and tamper-proof betting records
+   - Smart contracts for automatic settlement of bets
+
+3. **User Dashboard**
+   - Track personal prediction history
+   - Monitor current bets and potential returns
+
+4. **Leaderboard System**
+   - Compete with other predictors
+   - Earn reputation based on prediction accuracy
+
+5. **Wallet Integration**
+   - Connect various cryptocurrency wallets
+   - Seamless deposit and withdrawal process
+
+## 🌍 About the Project
+
+BetDAG is an innovative AI-powered prediction market platform built on BlockDAG technology that allows users to make and bet on cryptocurrency price predictions. This project was created for the BlockDAG Hackathon with the theme "Prediction Markets".
+
+## 🚀 Getting Started
+
+### Prerequisites
+- Node.js (v18 or higher)
+- Git
+- Yarn or npm
+
+### Installation
+
+1. Clone the repository
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/freddyfavour/BetDAG.git
+cd BetDAG
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install frontend dependencies
+```bash
+cd frontend
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Install smart contract dependencies
+```bash
+# For Foundry
+cd contracts/foundry
+forge install
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+# For Hardhat
+cd contracts/hardhat
+npm install
+```
 
-## Learn More
+4. Start the development server
+```bash
+cd frontend
+npm run dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+## 📝 Project Structure
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+BetDAG/
+├── contracts/
+│   ├── foundry/      # Foundry smart contracts
+│   └── hardhat/      # Hardhat implementation
+├── frontend/
+│   ├── public/       # Static assets
+│   ├── src/          # Frontend source code
+│   │   ├── app/      # Next.js app router
+│   │   ├── components/
+│   │   ├── services/ # API services
+│   │   └── context/  # React context providers
+│   └── ...
+└── README.md
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🔮 Future Roadmap
 
-## Deploy on Vercel
+- **Multiple Cryptocurrency Support**: Expand beyond current offerings
+- **Advanced AI Models**: Enhanced prediction accuracy
+- **Mobile Application**: iOS and Android support
+- **Social Features**: Community discussions and shared predictions
+- **Extended Market Types**: Add more types of prediction markets
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🏆 BlockDAG Hackathon
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This project was developed for the BlockDAG Hackathon, focusing on creating an innovative prediction market platform that leverages the unique features of BlockDAG technology for enhanced security, transparency, and scalability.
+
+## 📄 License
+
+[MIT License](LICENSE)
+
+## 👥 Contact
+
+For questions or feedback about BetDAG, please open an issue in this repository or contact the project maintainers directly.
+
+---
+
+*BetDAG - Predict the market. Powered by AI. Secured by BlockDAG*

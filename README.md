@@ -61,7 +61,7 @@ The project is built using a comprehensive tech stack:
 
 ## 🌍 About the Project
 
-GoViral, an African AI lab, developed BetDAG as part of their suite of intelligent tools designed to help users manage money, access local knowledge, and engage with digital assets through AI. The platform currently serves over 3,420 monthly users.
+BetDAG is an innovative AI-powered prediction market platform built on BlockDAG technology that allows users to make and bet on cryptocurrency price predictions. This project was created for the BlockDAG Hackathon with the theme "Prediction Markets".
 
 ## 🚀 Getting Started
 

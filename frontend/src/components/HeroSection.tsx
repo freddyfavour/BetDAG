@@ -156,14 +156,13 @@ export default function HeroSection() {
               <span className="block">
                 {splitTextIntoSpans("Powered by AI")}
               </span>
-              <span className="block">
+              <span className="block text-[#0A1638]">
                 {splitTextIntoSpans("Secured by BlockDAG")}
               </span>
             </h1>
             
             <p className="text-gray-200 text-xl md:text-2xl mb-8 max-w-3xl" ref={paragraphRef}>
-              GoViral is an African AI lab building intelligent tools to manage money, access local
-              knowledge, navigate real estate, and engage with sports all powered by localized AI.
+              BetDAG is an innovative AI-powered prediction market platform built on BlockDAG technology that allows users to make and bet on cryptocurrency price predictions. Predict the future and win prizes.
             </p>
             
             <div className="flex flex-wrap gap-4 justify-center" ref={buttonsRef}>
