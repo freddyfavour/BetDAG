@@ -156,7 +156,7 @@ export default function HeroSection() {
               <span className="block">
                 {splitTextIntoSpans("Powered by AI")}
               </span>
-              <span className="block text-[#0A1638]">
+              <span className="block text-white">
                 {splitTextIntoSpans("Secured by BlockDAG")}
               </span>
             </h1>
