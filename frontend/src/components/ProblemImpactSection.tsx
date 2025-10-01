@@ -10,12 +10,12 @@ interface ProblemCardProps {
 
 function ProblemCard({ title, description, icon }: ProblemCardProps) {
   return (
-    <div className="bg-gray-800/40 rounded-xl border border-gray-700/50 p-6 backdrop-blur-sm hover:shadow-lg hover:shadow-blue-500/10 transition-all duration-300 flex flex-col items-start justify-center h-full">
+    <div className="bg-[#0A1638] rounded-xl border border-gray-700/50 p-6 backdrop-blur-sm hover:shadow-lg hover:shadow-blue-500/10 transition-all duration-300 flex flex-col items-start justify-center h-full">
       <div className="text-blue-400 mb-4 flex items-center">
         {icon}
       </div>
       <h3 className="text-xl font-bold mb-3 text-white text-left">{title}</h3>
-      <p className="text-gray-300 text-left">{description}</p>
+      <p className="text-gray-300 text-left text-md">{description}</p>
     </div>
   );
 }
@@ -62,7 +62,7 @@ export default function ProblemImpactSection() {
   ];
 
   return (
-    <section className="py-16 bg-[#0A1223]" id="problem-impact">
+    <section className="py-16 bg-[#030A1E]" id="problem-impact">
       <div className="container mx-auto px-4">
         {/* Header Section */}
         <div className="text-center mb-12">
@@ -74,7 +74,7 @@ export default function ProblemImpactSection() {
           </button>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
           {/* First column - first two cards */}
           <div className="flex flex-col gap-6 h-full">
             <div className="flex-1 flex">

@@ -65,7 +65,7 @@ export default function Home() {
         <ProblemImpactSection />
         
         {/* Meet Our Team section */}
-        {/* <TeamSection /> */}
+        <TeamSection />
         
         {/* Comprehensive footer */}
         <Footer />
