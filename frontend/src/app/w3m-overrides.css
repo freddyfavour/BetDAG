@@ -1,0 +1,7 @@
+/* Remove native Web3Modal button background for custom ConnectButton styling */
+w3m-button button,
+.w3m-button button {
+  background: transparent !important;
+  box-shadow: none !important;
+  color: inherit !important;
+}

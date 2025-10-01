@@ -28,19 +28,10 @@ export default function AboutSection() {
   };
 
   useEffect(() => {
-    if (!sectionRef.current) return;
+    const sectionEl = sectionRef.current;
+    if (!sectionEl) return;
 
-    // Create ScrollTrigger for the section
-    gsap.timeline({
-      scrollTrigger: {
-        trigger: sectionRef.current,
-        start: "top top",
-        end: "+=100%", 
-        pin: true,
-        pinSpacing: true,
-        scrub: 1,
-      }
-    });
+    const cleanupFns: Array<() => void> = [];
 
     // Animate heading
     if (headingRef.current) {
@@ -52,7 +43,7 @@ export default function AboutSection() {
           opacity: 1, 
           duration: 1,
           scrollTrigger: {
-            trigger: sectionRef.current,
+            trigger: sectionEl,
             start: "top 80%",
           }
         }
@@ -63,17 +54,40 @@ export default function AboutSection() {
     const para = paragraphRef.current;
     if (para) {
       const words = para.querySelectorAll('.word-mask');
-      
-      gsap.to(words, {
-        color: 'white',
-        stagger: 0.02, // Slightly faster stagger since there are more words now
-        duration: 0.4,
-        scrollTrigger: {
-          trigger: para,
-          start: "top 80%",
-          toggleActions: "play none none reset"
-        }
-      });
+
+      if (words.length) {
+        const textTl = gsap.timeline({ paused: true });
+        cleanupFns.push(() => textTl.kill());
+
+        textTl.to(words, {
+          color: "#FFFFFF",
+          stagger: {
+            each: 0.05,
+            ease: "none"
+          },
+          ease: "none",
+          duration: 1
+        });
+
+        const pinTrigger = ScrollTrigger.create({
+          trigger: sectionEl,
+          start: "top top",
+          end: "+=100%",
+          pin: true,
+          pinSpacing: true,
+          scrub: true,
+          onUpdate: (self) => {
+            textTl.progress(self.progress);
+          },
+          onLeave: () => {
+            textTl.progress(1);
+          },
+          onLeaveBack: () => {
+            textTl.progress(0);
+          }
+        });
+        cleanupFns.push(() => pinTrigger.kill());
+      }
     }
 
     // Animate image and tags
@@ -87,7 +101,7 @@ export default function AboutSection() {
           duration: 1,
           delay: 0.5,
           scrollTrigger: {
-            trigger: sectionRef.current,
+            trigger: sectionEl,
             start: "top 60%",
           }
         }
@@ -106,7 +120,7 @@ export default function AboutSection() {
           duration: 0.6,
           delay: 1 + (index * 0.2),
           scrollTrigger: {
-            trigger: sectionRef.current,
+            trigger: sectionEl,
             start: "top 60%",
           }
         }
@@ -114,8 +128,12 @@ export default function AboutSection() {
     });
 
     return () => {
-      // Clean up ScrollTrigger instances
-      ScrollTrigger.getAll().forEach(t => t.kill());
+      cleanupFns.forEach((fn) => fn());
+      ScrollTrigger.getAll().forEach((trigger) => {
+        if (trigger.trigger === sectionEl) {
+          trigger.kill();
+        }
+      });
     };
   }, []);
 

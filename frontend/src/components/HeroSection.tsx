@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useLayoutEffect } from "react";
 import Image from "next/image";
 import ConnectButton from "./ConnectButton";
 import { useAccount } from "wagmi";
@@ -8,10 +8,15 @@ import Link from "next/link";
 import { gsap } from "gsap";
 import LoadingScreen from "./LoadingScreen";
 
+const useIsomorphicLayoutEffect = typeof window !== "undefined" ? useLayoutEffect : useEffect;
+
 export default function HeroSection() {
   const { isConnected } = useAccount();
   const [mounted, setMounted] = useState(false);
   const [loading, setLoading] = useState(true);
+  const timelineRef = useRef<gsap.core.Timeline | null>(null);
+  const fallbackTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const hasAnimatedRef = useRef(false);
   
   // Refs for animated elements
   const taglineRef = useRef<HTMLHeadingElement>(null);
@@ -20,6 +25,7 @@ export default function HeroSection() {
   const paragraphRef = useRef<HTMLParagraphElement>(null);
   const buttonsRef = useRef<HTMLDivElement>(null);
   const glowRef = useRef<HTMLDivElement>(null);
+  const heroSectionRef = useRef<HTMLDivElement>(null);
 
   // Split text into words for animation
   const splitTextIntoSpans = (text: string) => {
@@ -30,28 +36,81 @@ export default function HeroSection() {
     ));
   };
 
+  useIsomorphicLayoutEffect(() => {
+    if (!taglineRef.current) return;
+
+    const ctx = gsap.context(() => {
+      const taglineWords = taglineRef.current?.querySelectorAll("span");
+
+      if (avatarsRef.current) {
+        gsap.set(avatarsRef.current, { scale: 0, opacity: 0 });
+      }
+
+      if (usersTextRef.current) {
+        gsap.set(usersTextRef.current, { y: -20, opacity: 0 });
+      }
+
+      if (taglineWords && taglineWords.length) {
+        gsap.set(taglineWords, { y: 40, opacity: 0 });
+      }
+
+      if (paragraphRef.current) {
+        gsap.set(paragraphRef.current, { y: 30, opacity: 0 });
+      }
+
+      if (buttonsRef.current) {
+        gsap.set(buttonsRef.current, { y: 30, opacity: 0 });
+      }
+
+      if (glowRef.current) {
+        gsap.set(glowRef.current, { opacity: 0 });
+      }
+    }, heroSectionRef);
+
+    return () => {
+      ctx.revert();
+      if (timelineRef.current) {
+        timelineRef.current.kill();
+        timelineRef.current = null;
+      }
+    };
+  }, []);
+
   // Set mounted state to true after the component mounts
   useEffect(() => {
     setMounted(true);
     
+    const startAnimation = () => {
+      if (hasAnimatedRef.current) return;
+
+      hasAnimatedRef.current = true;
+      if (fallbackTimeoutRef.current) {
+        clearTimeout(fallbackTimeoutRef.current);
+        fallbackTimeoutRef.current = null;
+      }
+
+      animateHeroElements();
+      setLoading(false);
+    };
+
     // Listen for loading complete event
     const handleLoadingComplete = () => {
-      setTimeout(() => {
-        setLoading(false);
-        animateHeroElements();
-      }, 500);
+      startAnimation();
     };
     
     document.addEventListener('loadingComplete', handleLoadingComplete);
     
     // For testing purposes - auto-close loader after 5 seconds if event doesn't fire
-    const timer = setTimeout(() => {
-      setLoading(false);
+    fallbackTimeoutRef.current = setTimeout(() => {
+      startAnimation();
     }, 5000);
     
     return () => {
       document.removeEventListener('loadingComplete', handleLoadingComplete);
-      clearTimeout(timer);
+      if (fallbackTimeoutRef.current) {
+        clearTimeout(fallbackTimeoutRef.current);
+        fallbackTimeoutRef.current = null;
+      }
     };
   }, []);
   
@@ -59,7 +118,15 @@ export default function HeroSection() {
   const animateHeroElements = () => {
     if (!taglineRef.current) return;
     
-    const timeline = gsap.timeline({ defaults: { ease: "power3.out" } });
+    if (timelineRef.current) {
+      timelineRef.current.kill();
+      timelineRef.current = null;
+    }
+
+    document.dispatchEvent(new Event("heroAnimationStart"));
+
+  const timeline = gsap.timeline({ defaults: { ease: "power3.out" } });
+  timelineRef.current = timeline;
     
     // Animate all spans inside the heading
     const taglineWords = taglineRef.current.querySelectorAll('span');
@@ -126,7 +193,7 @@ export default function HeroSection() {
     <>
       {loading && <LoadingScreen />}
       
-      <section className="relative min-h-screen flex items-center overflow-hidden">
+  <section className="relative min-h-screen flex items-center overflow-hidden">
         {/* Background Image */}
         <Image 
           src="/landing/landingbackground.png"
@@ -140,7 +207,7 @@ export default function HeroSection() {
         <div className="absolute inset-0 bg-black/40 z-0"></div> {/* Overlay to ensure text readability */}
         
         <div className="container mx-auto px-4 z-10 text-center pt-20">
-          <div className="h-[100vh] flex flex-col items-center align-center justify-center max-w-4xl mx-auto">
+          <div ref={heroSectionRef} className="h-[100vh] flex flex-col items-center align-center justify-center max-w-4xl mx-auto">
             {/* User avatars - replaced with landing images */}
             <div className="flex items-center mb-8" ref={avatarsRef}>
               <div className="relative w-[80px] h-[40px]">
@@ -206,7 +273,7 @@ export default function HeroSection() {
                 <ConnectButton 
                   variant="primary"
                   size="lg"
-                  className="rounded-full px-6"
+                  className="rounded-full border-blue-600 px-6 min-h-[55px]"
                 />
               )
             ) : (

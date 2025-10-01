@@ -116,7 +116,7 @@ export default function TeamSection() {
   const secondRow = teamMembers.slice(3);
 
   return (
-    <section className="py-16 bg-[#070E1B]" id="team">
+    <section className="py-16 bg-[#121114]" id="team">
       <div className="max-w-7xl mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">

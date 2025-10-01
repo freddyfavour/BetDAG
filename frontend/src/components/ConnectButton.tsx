@@ -28,9 +28,6 @@ export default function ConnectButton({
   
   const buttonStyle = `${baseStyles} ${variantStyles[variant]} ${sizeStyles[size]} ${widthStyle} ${className}`;
   
-  return (
-    <div className={buttonStyle}>
-      <w3m-button />
-    </div>
-  );
+  // w3m-button does not accept className/class, so render as is
+  return <w3m-button />;
 }
