@@ -131,7 +131,7 @@ export default function AboutSection() {
             
             <div>
               <p 
-                className="text-lg md:text-xl text-gray-500" 
+                className="text-lg md:text-xl text-gray-500/50" 
                 ref={paragraphRef}
               >
                 {splitTextIntoWords("We're building the next generation of prediction markets where AI meets blockchain. Our mission is simple: empower users to make smarter, data-driven crypto predictions in a transparent and rewarding way. By combining advanced AI models with the security of BlockDAG, we deliver accurate insights, seamless wallet integration, and fair outcomes—all powered by decentralized technology. Whether you're here to test your market instincts, compete on the leaderboard, or simply explore AI-driven forecasts, our platform is designed to make crypto predictions accessible, engaging, and trustworthy. We believe the future of finance is open, intelligent, and community-driven, and we're here to lead that movement.")}

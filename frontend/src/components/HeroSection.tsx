@@ -139,29 +139,55 @@ export default function HeroSection() {
         
         <div className="absolute inset-0 bg-black/40 z-0"></div> {/* Overlay to ensure text readability */}
         
-        <div className="container mx-auto px-4 z-10 text-center pt-16">
-          <div className="flex flex-col items-center max-w-4xl mx-auto">
-            {/* User avatars */}
-            <div className="flex items-center -space-x-2 mb-3" ref={avatarsRef}>
-              <div className="w-10 h-10 rounded-full bg-blue-500 border-2 border-white overflow-hidden"></div>
-              <div className="w-10 h-10 rounded-full bg-purple-500 border-2 border-white overflow-hidden"></div>
-              <div className="w-10 h-10 rounded-full bg-green-500 border-2 border-white overflow-hidden"></div>
-              <div className="w-10 h-10 rounded-full bg-yellow-500 border-2 border-white overflow-hidden"></div>
+        <div className="container mx-auto px-4 z-10 text-center pt-20">
+          <div className="h-[100vh] flex flex-col items-center align-center justify-center max-w-4xl mx-auto">
+            {/* User avatars - replaced with landing images */}
+            <div className="flex items-center mb-8" ref={avatarsRef}>
+              <div className="relative w-[80px] h-[40px]">
+                <Image
+                  src="/landing/user1.png"
+                  alt="User 1"
+                  width={40}
+                  height={40}
+                  className="absolute left-0 top-0 rounded-full border-2 border-white object-cover bg-white z-10"
+                  style={{ zIndex: 10 }}
+                />
+                <Image
+                  src="/landing/user2.png"
+                  alt="User 2"
+                  width={40}
+                  height={40}
+                  className="absolute left-[20px] top-0 rounded-full border-2 border-white object-cover bg-white z-20"
+                  style={{ zIndex: 20 }}
+                />
+                <Image
+                  src="/landing/user3.png"
+                  alt="User 3"
+                  width={40}
+                  height={40}
+                  className="absolute left-[40px] top-0 rounded-full border-2 border-white object-cover bg-white z-30"
+                  style={{ zIndex: 30 }}
+                />
+                <Image
+                  src="/landing/user4.png"
+                  alt="User 4"
+                  width={40}
+                  height={40}
+                  className="absolute left-[60px] top-0 rounded-full border-2 border-white object-cover bg-white z-40"
+                  style={{ zIndex: 40 }}
+                />
+              </div>
+              <div className="text-gray-200 text-sm font-inter ml-8" ref={usersTextRef}>3420+ monthly users</div>
             </div>
             
-            <div className="text-gray-200 text-sm mb-8" ref={usersTextRef}>3420+ monthly users</div>
-            
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-white mb-6" ref={taglineRef}>
-              {splitTextIntoSpans("Predict the market.")}
-              <span className="block">
-                {splitTextIntoSpans("Powered by AI")}
-              </span>
-              <span className="block text-white">
+            <h1 className="text-4xl md:text-5xl lg:text-5xl font-bold font-inria-sans leading-tight text-white mb-6" ref={taglineRef}>
+              {splitTextIntoSpans("Predict the market. Powered by AI")}
+              <span className="block text-white mt-3">
                 {splitTextIntoSpans("Secured by BlockDAG")}
               </span>
             </h1>
             
-            <p className="text-gray-200 text-xl md:text-2xl mb-8 max-w-3xl" ref={paragraphRef}>
+            <p className="text-gray-200 font-inter text-xl md:text-2xl mb-8 max-w-3xl" ref={paragraphRef}>
               BetDAG is an innovative AI-powered prediction market platform built on BlockDAG technology that allows users to make and bet on cryptocurrency price predictions. Predict the future and win prizes.
             </p>
             

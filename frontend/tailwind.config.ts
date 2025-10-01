@@ -8,6 +8,10 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        'inria-sans': ['Inria Sans', 'sans-serif'],
+        // ...existing font families
+      },
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
